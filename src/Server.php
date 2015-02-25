@@ -47,25 +47,13 @@ class Server extends BaseServer
         $data = $this->getProfile($data['user']['id']);
         $data = $data['person'];
 
-        $user = new User();
-
+        $user           = new User();
         $user->id       = $data['id'];
         $user->nickname = $data['username']['_content'];
         $user->name     = $data['realname']['_content'];
-
-        $used = ['id', 'username', 'realname'];
-
-        foreach ($data as $key => $value) {
-            if (strpos($key, 'url') !== false) {
-                if (!in_array($key, $used)) {
-                    $used[] = $key;
-                }
-
-                $user->urls[$key] = $value;
-            }
-        }
-
-        $user->extra = array_diff_key($data, array_flip($used));
+        $user->extra    = array_diff_key($data, array_flip([
+            'id', 'username', 'realname',
+        ]));
 
         return $user;
     }
