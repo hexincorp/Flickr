@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Flickr;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;

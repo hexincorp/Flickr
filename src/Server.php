@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Flickr;
 
 use Laravel\Socialite\One\User;
@@ -47,11 +48,11 @@ class Server extends BaseServer
         $data = $this->getProfile($data['user']['id']);
         $data = $data['person'];
 
-        $user           = new User();
-        $user->id       = $data['id'];
+        $user = new User();
+        $user->id = $data['id'];
         $user->nickname = $data['username']['_content'];
-        $user->name     = $data['realname']['_content'];
-        $user->extra    = array_diff_key($data, array_flip([
+        $user->name = $data['realname']['_content'];
+        $user->extra = array_diff_key($data, array_flip([
             'id', 'username', 'realname',
         ]));
 
@@ -92,11 +93,11 @@ class Server extends BaseServer
     public function getProfile($userId)
     {
         $parameters = [
-            'method'         => 'flickr.people.getInfo',
-            'format'         => 'json',
+            'method' => 'flickr.people.getInfo',
+            'format' => 'json',
             'nojsoncallback' => 1,
-            'user_id'        => $userId,
-            'api_key'        => $this->clientCredentials->getIdentifier(),
+            'user_id' => $userId,
+            'api_key' => $this->clientCredentials->getIdentifier(),
         ];
 
         $url = 'https://api.flickr.com/services/rest/?'.http_build_query($parameters);
